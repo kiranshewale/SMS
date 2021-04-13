@@ -1,0 +1,241 @@
+﻿@model VehicleAllotmentModel;
+
+<form asp-controller="VehicleAllotment" asp-action="CoDealerVehicleAllotment" method="post" asp-antiforgery="true" class="ui form attached fluid segment validate-me g-pt-20 col-md-12" role="form">
+
+    <!-- Content Wrapper. Contains page content -->
+    @*<div class="content-wrapper">*@
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-8">
+                    <h5>Vehicle Allotment </h5>
+                </div>
+
+            </div>
+        </div><!-- /.container-fluid -->
+        <hr />
+    </section>
+   
+    <!--end-->
+    <!-- Main content -->
+    <section class="content">
+        <div asp-validation-summary="None" class="text-danger"></div>
+        <div class="row">         
+
+            <div class="col-md-12">
+                <div class="card card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Chose Your Vehicle</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                             <div class="form-group col-sm-12">
+                                <label asp-for="CoDealerId"></label>
+                                <select class="form-control custom-select" asp-for="CoDealerId" asp-items="Model.AvailableCoDealers"></select>
+                                <span asp-validation-for="CoDealerId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ModelId"></label>
+                                <select class="form-control custom-select" asp-for="ModelId" asp-items="Model.AvailableModels"></select>
+                                <span asp-validation-for="ModelId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label asp-for="VarientId"></label>
+                                <select class="form-control custom-select" asp-for="VarientId" asp-items="Model.AvailableVarients"></select>
+                                <span asp-validation-for="VarientId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="VarientType"></label>
+                                <select class="form-control custom-select" asp-for="VarientType" asp-items="Model.AvailableVarientTypes"></select>
+                                <span asp-validation-for="VarientType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="VarientColourId"></label>
+                                <select class="form-control custom-select" asp-for="VarientColourId" asp-items="Model.AvailableVarientColours"></select>
+                                <span asp-validation-for="VarientColourId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="TeamLeaderId"></label>
+                                <select class="form-control custom-select" asp-for="TeamLeaderId" asp-items="Model.AvailableTeamLeaders"></select>
+                                <span asp-validation-for="TeamLeaderId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="SalesConsultantId"></label>
+                                <select class="form-control custom-select" asp-for="SalesConsultantId" asp-items="Model.AvailableSalesConsultants"></select>
+                                <span asp-validation-for="SalesConsultantId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="BranchId"></label>
+                                <select class="form-control custom-select" asp-for="BranchId" asp-items="Model.AvailableBranches"></select>
+                                <span asp-validation-for="BranchId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="button" id="getVehicle" name="generatequote" class="btn btn-info w-100">
+                            Get Vehicle
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--VehicleInfo for allotment-->
+            <div id="vehicle-list" class="text-center w-100">
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    @*</div>*@
+    <!-- /.content-wrapper -->
+</form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");};
+    <script>
+        $(document).ready(function () {
+            $('#vehicle-list').hide();
+
+            $("#ModelId").change(function () {
+                $('#please-wait').show();
+                var modelId = $('#ModelId').val();
+                BindVarientsByModelDropdown(modelId);
+                $('#please-wait').hide();
+            });
+
+            $("#VarientType").change(function () {
+                $('#please-wait').show();
+                var varientId = $('#VarientId').val();
+                var varType = $('#VarientType').val();
+                BindVarientColoursByVarientTypeDropdown(varientId, varType);
+                $('#please-wait').hide();
+            });
+
+            $("#TeamLeaderId").change(function () {
+                $('#please-wait').show();
+                var teamLeaderId = $('#TeamLeaderId').val();
+                BindSalesConsultantsByTeamLeaderDropdown(teamLeaderId);
+                $('#please-wait').hide();
+            });
+
+            $('#getVehicle').on('click', function () {
+            $('#please-wait').show();
+              // displayAjaxLoading(true);
+              var modelId = $('#ModelId').val();
+                var varientId = $('#VarientId').val();
+              var colourId = $('#VarientColourId').val();
+
+              $.ajax({
+                  cache: false,
+                  type: "Post",
+                  url: "@Url.Action("GetVehicleList", "VehicleAllotment")",
+                  data: {
+                      'modelId': modelId,
+                      'varientId': varientId,
+                      'colourId': colourId
+                  },
+                  success: function (data, textStatus, jqXHR) {
+                      if (data == 'NotFound') {
+                          alert('vehicle not found');
+                      } else {
+                          //$('#custInfo').html('');
+                          $('#vehicle-list').html(data);
+                      }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Failed to retrieve vehicles.');
+                  },
+                  complete: function (jqXHR, textStatus) {
+                     // displayAjaxLoading();
+                      // Lazy load Images
+                      // $("img.lazyload").lazyload();
+                      $('#vehicle-list').show();
+                      $('#please-wait').hide();
+                    }
+                });
+            });
+        });
+
+        function BindVarientsByModelDropdown(modelId) {
+
+            $.ajax({
+                cache: false,
+                type: "Get",
+                url: '/GenerateQuotation/GetVarientsByModelId',
+                data: {
+                    'modelId': modelId
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                    $('#VarientId').html('');
+
+                    //$('#VarientId').append($('<option></option>').val("").html("Select Varient"));
+
+                    $.each(data,
+                        function (id, option) {
+                            $('#VarientId').append($('<option></option>').val(option.id).html(option.name));
+                        });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to retrive varients by model.');
+                }
+            });
+        }
+
+        function BindVarientColoursByVarientTypeDropdown(varientId, varType) {
+
+            $.ajax({
+                cache: false,
+                type: "Get",
+                url: '/GenerateQuotation/GetVarientColoursByVarient',
+                data: {
+                    'varientId': varientId,
+                    'varientType': varType
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                    $('#VarientColourId').html('');
+
+                    // $('#VarientColourId').append($('<option></option>').val("").html("Select colour"));
+
+                    $.each(data,
+                        function (id, option) {
+                            $('#VarientColourId').append($('<option></option>').val(option.id).html(option.name));
+                        });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to retrive colours by model varient.');
+                }
+            });
+        }
+
+        function BindSalesConsultantsByTeamLeaderDropdown(teamLeaderId) {
+
+            $.ajax({
+                cache: false,
+                type: "Get",
+                url: '/GenerateQuotation/GetSalesConsultantsByTL',
+                data: {
+                    'teamLeaderId': teamLeaderId
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                    $('#SalesConsultantId').html('');
+
+                    //$('#TeamLeaderId').append($('<option></option>').val("").html("Select colour"));
+
+                    $.each(data,
+                        function (id, option) {
+                            $('#SalesConsultantId').append($('<option></option>').val(option.id).html(option.name));
+                        });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to retrive sales consultants by team leader.');
+                }
+            });
+        }
+
+    </script>
+}

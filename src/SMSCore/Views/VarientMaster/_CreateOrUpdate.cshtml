@@ -1,0 +1,54 @@
+﻿@model VarientMasterModel;
+
+<div class="row offset-md-2">
+    <div class="col-md-9">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Colour Information</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="VarientCode"></label>
+                    <input type="text" asp-for="VarientCode" class="form-control" placeholder="firs name">
+                    <span asp-validation-for="VarientCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VerientName"></label>
+                    <input type="text" asp-for="VerientName" class="form-control" placeholder="last name">
+                    <span asp-validation-for="VerientName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SelectedColourIds"></label>
+                    <select class="form-control custom-select" asp-for="SelectedColourIds" asp-items="Model.AvaillabelColoursList" multiple>
+                        <option value=""></option>
+                    </select>
+                    <span asp-validation-for="SelectedColourIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FriendlyName"></label>
+                    <input type="text" asp-for="FriendlyName" class="form-control" placeholder="last name">
+                    <span asp-validation-for="FriendlyName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="Active" class="form-check-label mr-sm-1">
+                        <label asp-for="Active"></label>
+                        <span asp-validation-for="Active" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    
+</div>
+

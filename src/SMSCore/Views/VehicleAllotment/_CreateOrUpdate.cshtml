@@ -1,0 +1,62 @@
+﻿@model VehicleAllotmentModel;
+
+<input type="hidden" asp-for="Id" />
+<div class="row offset-md-2">
+    <div class="col-md-9">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Colour Information</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label> Model</label>
+                    <input type="text" asp-for="Model" class="form-control" disabled>
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Colour</label>
+                    <input type="text" asp-for="Colour" class="form-control" disabled>
+                    <span asp-validation-for="Colour" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label> VIN Number</label>
+                    <input type="text" asp-for="VINNumber" class="form-control" placeholder="model" disabled>
+                    <span asp-validation-for="VINNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Colour</label>
+                    <input type="text" asp-for="EngineNumber" class="form-control" disabled>
+                    <span asp-validation-for="EngineNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" asp-for="IsAlloted" class="form-check-label mr-sm-1">
+                        <label>Approve Allotment</label>
+                        <span asp-validation-for="IsAlloted" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" asp-for="CustomerName" class="form-control" disabled>
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Sales Consultant</label>
+                    <input type="text" asp-for="SalesConsultant" class="form-control" disabled>
+                    <span asp-validation-for="SalesConsultant" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    
+</div>
+

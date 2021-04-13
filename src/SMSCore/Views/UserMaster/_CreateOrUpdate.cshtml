@@ -1,0 +1,100 @@
+﻿@model UserMasterModel;
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Personal Information</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input type="text" asp-for="FirstName" class="form-control" placeholder="firs name">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input type="text" asp-for="LastName" class="form-control" placeholder="last name">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input type="text" asp-for="Email" class="form-control" placeholder="email@mail.com">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ContactNumber"></label>
+                    <input type="text" asp-for="ContactNumber" class="form-control" placeholder="contact number">
+                    <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address"></label>
+                    <textarea type="text" asp-for="Address" class="form-control" placeholder="address"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                
+               
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-6">
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Official</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="DesignationId"></label>
+                    <select class="form-control custom-select" asp-for="DesignationId" asp-items="Model.AvailableDesignations" asp-multiple="true"></select>
+                    <span asp-validation-for="DesignationId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnderDesId"></label>
+                    <select class="form-control custom-select" asp-for="UnderDesId" asp-items="Model.AvailableUnderDesIds"></select>
+                    <span asp-validation-for="UnderDesId" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Username and Password</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="UserName"></label>
+                    <input type="text" asp-for="UserName" class="form-control" placeholder="username/email">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input type="password" asp-for="Password" class="form-control" placeholder="password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    </div>
+

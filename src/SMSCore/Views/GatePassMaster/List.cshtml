@@ -1,0 +1,191 @@
+﻿@model GatePassModel;
+@{
+    ViewData["Title"] = "Gate Pass";
+    Layout = "_Layout";
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+<form asp-controller="GatePassMaster" asp-action="List" method="post">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h4 class="m-0 text-dark">Gate Pass Master</h4>
+                </div>
+                <!-- /.col -->
+                @*<div class="col-sm-6">
+                        <div class="breadcrumb float-sm-right">
+                            <a asp-controller="VehiclesMaster" asp-action="ImportVehiclesData" class="btn bg-blue">
+                                <i class="fas fa-file-import"></i>
+                               Import Vehicles
+                            </a>
+                        </div>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Alloted Vehicles List</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover" style="font-size:14px;text-align:center;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Model</th>
+                                        <th>Colour</th>
+                                        <th>VIN Number</th>
+                                        <th>Engine Number</th>
+                                        <th>Customer Name</th>
+                                        <th>Sales Consultant</th>
+                                        <th>Branch</th>
+                                        <th>Alloted On</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size:13px;">
+                                    @for (int i = 0; i < Model.AllotedVehicleDetails.Count(); i++)
+                                    {
+                                        
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].IsSelected.Value" />
+                                            <input asp-for="@Model.AllotedVehicleDetails[i].IsSelected.Selected" class="select-list" />
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].AllotId" />
+                                        </td>
+                                        <td>
+
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].Model)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].Model" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].Colour)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].Colour" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].VINNumber)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].VINNumber" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].EngineNumber)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].EngineNumber" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].CustomerName)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].CustomerName" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].SalesConsultant)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].SalesConsultant" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelitem => modelitem.AllotedVehicleDetails[i].BranchName)
+                                            <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].BranchName" />
+                                        </td>
+                                        <td>@Model.AllotedVehicleDetails[i].AllotDate
+                                        <input type="hidden" asp-for="@Model.AllotedVehicleDetails[i].KeyNo" />
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-12" id="offc-info">
+                    <div class="card card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Official Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="OutTo"></label>
+                                    <select class="form-control custom-select" asp-for="OutTo" asp-items="Model.AvaillablePlaces"></select>
+                                    <span asp-validation-for="OutTo" class="text-danger"></span>
+                                </div>
+
+                              
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="ByHand"></label>
+                                    <textarea asp-for="ByHand" class="form-control"></textarea>
+                                    <span asp-validation-for="ByHand" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" id="get-vehicle-out" name="generatequote" class="btn btn-info w-100">
+                                Generate GatePass
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <!-- jQuery -->
+    @*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
+    <!-- Bootstrap 4 -->
+    @*<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    <!-- DataTables -->
+</form>
+<script>
+    $(function () {
+        $('#offc-info').hide();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength": 15,
+        });
+
+        $('.select-list').click(function () {
+            $('#please-wait').show();
+            var exists = false;
+            $('input.select-list[type=checkbox]').each(function () {
+                if (this.checked == true) {
+                    exists = true;
+                    return false;
+                }
+            });
+
+            if (exists == true) {
+                $('#offc-info').show();
+
+            } else {
+                $('#offc-info').hide();
+            }
+
+            $('#please-wait').hide();
+        });
+
+        
+    });
+
+    
+</script>

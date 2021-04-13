@@ -1,0 +1,108 @@
+﻿@model IList<DesignationMasterModel>;
+@{
+    ViewData["Title"] = "Designation List";
+    Layout = "_Layout";
+    var number = 1;
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Manage Designations</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <div class="breadcrumb float-sm-right">
+                    <a asp-controller="DesignationMaster" asp-action="Create" class="btn bg-blue">
+                        <i class="fa fa-plus-square"></i>
+                        Add New
+                    </a>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Existing Designation List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SrNo</th>
+                                    <th>Designation</th>
+                                    <th>Active</th>
+                                    <th>Date Updated</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@number</td>
+                                        <td>
+                                            @item.Designation
+                                        </td>
+                                        <td>@item.Active</td>
+                                        <td>@item.DateUpdated</td>
+                                        <td>@item.DateCreated</td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                            @*<a asp-action="Edit/@item.Id" class="btn bg-blue">
+                                                <i class="fas fa-pencil-alt"></i>
+                                                Edit
+                                            </a>*@
+                                        </td>
+                                    </tr>
+                                    number++;
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- jQuery -->
+@*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
+<!-- Bootstrap 4 -->
+@*<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<!-- DataTables -->
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });</script>

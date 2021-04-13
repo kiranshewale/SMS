@@ -1,0 +1,70 @@
+﻿@model IList<PriceListFilterModel>;
+
+<div class="col-md-12">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Price List</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td asp-for="@item.IsSelected" class="bb"><input type="checkbox" asp-for="@item.IsSelected" name="@item.Name" price="@item.Price" class="kk"/></td>
+                                <td>@item.Name</td>
+                                <td>
+                                    &#x20B9; @item.Price
+
+                                </td>
+                            </tr>
+                        }
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td>
+                            &#x20B9; <label id="total-amount"></label>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" id="getPriceList" name="generatequote" class="btn btn-info w-100">
+                Get Quote
+            </button>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        var total = 0;
+        $.each($("input[class='kk']:checked"), function () {
+            total += Number($(this).attr('price'));
+        });
+
+        $('#total-amount').text(total);
+
+        $('.bb').click(function () {
+            total = 0;
+            $.each($("input[class='kk']:checked"), function () {
+             total += Number($(this).attr('price'));
+            });
+            $('#total-amount').text(total);
+        });
+        
+    });
+</script>

@@ -1,0 +1,176 @@
+﻿@model PriceListModel;
+@{
+    ViewData["Title"] = "Price List";
+    Layout = "_Layout";
+    var number = 1;
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Manage Price List</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <div class="breadcrumb float-sm-right">
+                    <a asp-controller="PriceListMaster" asp-action="ImportPriceListData" class="btn bg-blue">
+                        <i class="fas fa-file-import"></i>
+                        Import Price List
+                    </a>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Search</h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label asp-for="ModelId"></label>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control custom-select" asp-for="ModelId" asp-items="Model.AvailableModels"></select>
+                                <span asp-validation-for="ModelId" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label asp-for="VarientId"></label>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control custom-select" asp-for="VarientId" asp-items="Model.AvailableVarients"></select>
+                                <span asp-validation-for="VarientId" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9 offset-md-3" >
+                                <button type="submit" class="btn bg-blue"><i class="fas fa-search"></i> Search </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Existing Price List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Model Code</th>
+                                    <th>Model Varient</th>
+                                    <th>Varient Type</th>
+                                    <th>Ex Showroom Price</th>
+                                    <th>Fast Tag</th>
+                                    <th>TCS</th>
+                                    <th>Honda Assure Insurance</th>
+                                    <th>Honda Assure Nil.Dep + Key Protect </th>
+                                    <th>Honda Assure RTI Engine Protect</th>
+                                    <th>RTO Individual</th>
+                                    <th>Accessory Combo Kit</th>
+                                    <th>Extended Warranty</th>
+                                    <th>RSA</th>
+                                    <th>Clay Bar</th>
+                                    <th>Antirust</th>
+                                    <th>Carpet Lamination</th>
+                                    <th>Totat Price</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PriceList)
+                                {
+                                    <tr>
+                                        <td>@number</td>
+                                        <td>@item.ModelCode</td>
+                                        <td>@item.ModelVarient</td>
+                                        <td>@item.VarientType</td>
+                                        <td>@item.ExShowroomPrice</td>
+                                        <td>@item.FastTag</td>
+                                        <td>@item.Tcs</td>
+                                        <td>@item.Hainsurance</td>
+                                        <td>@item.HanilDepWithKeyProtect</td>
+                                        <td>@item.HartiwithEngineProtect</td>
+                                        <td>@item.Rtoindividual</td>
+                                        <td>@item.AccessoryComboKit</td>
+                                        <td>@item.ExtendedWarranty</td>
+                                        <td>@item.Rsa</td>
+                                        <td>@item.ClayBar</td>
+                                        <td>@item.Antirust</td>
+                                        <td>@item.CarpetLamination</td>
+                                        <td>@item.TotatPrice</td>
+
+                                            <!--<td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })-->
+                                            @*<a asp-action="Edit/@item.Id" class="btn bg-blue">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Edit
+                                        </a>*@
+                                            <!--</td>-->
+                                    </tr>
+                                    number++;
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- jQuery -->
+@*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
+<!-- Bootstrap 4 -->
+@*<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<!-- DataTables -->
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength": 15,
+        });
+    });</script>

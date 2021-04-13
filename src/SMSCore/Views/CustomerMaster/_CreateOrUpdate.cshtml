@@ -1,0 +1,96 @@
+﻿@model CustomerDetailsModel;
+
+<input type="hidden" asp-for="CustId" />
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Customer Information</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Salutation"></label>
+                        <select class="form-control custom-select" asp-for="Salutation" asp-items="Model.AvailableSalutations"></select>
+                        <span asp-validation-for="Salutation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="CustomerName"></label>
+                        <input type="text" asp-for="CustomerName" class="form-control" placeholder="customer name">
+                        <span asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="EmailId"></label>
+                        <input type="text" asp-for="EmailId" class="form-control" placeholder="eq. email@mail.com">
+                        <span asp-validation-for="EmailId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="MobileNo1"></label>
+                        <input type="text" asp-for="MobileNo1" class="form-control" placeholder="mobile1">
+                        <span asp-validation-for="MobileNo1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="MobileNo2"></label>
+                        <input type="text" asp-for="MobileNo2" class="form-control" placeholder="mobile12">
+                        <span asp-validation-for="MobileNo2" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Address1"></label>
+                        <input type="text" asp-for="Address1" class="form-control" placeholder="address">
+                        <span asp-validation-for="Address1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Address2"></label>
+                        <input type="text" asp-for="Address2" class="form-control" placeholder="address">
+                        <span asp-validation-for="Address2" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="Pin"></label>
+                        <input type="text" asp-for="Pin" class="form-control" placeholder="pincode">
+                        <span asp-validation-for="Pin" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Taluka"></label>
+                        <input type="text" asp-for="Taluka" class="form-control" placeholder="taluka">
+                        <span asp-validation-for="Taluka " class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="District"></label>
+                        <input type="text" asp-for="District" class="form-control" placeholder="city">
+                        <span asp-validation-for="District" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="StateId"></label>
+                        <select class="form-control custom-select" asp-for="StateId" asp-items="Model.AvailableStates"></select>
+                        <span asp-validation-for="StateId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PanNo"></label>
+                        <input type="text" asp-for="PanNo" class="form-control" placeholder="pan number">
+                        <span asp-validation-for="PanNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="AdharNo"></label>
+                        <input type="text" asp-for="AdharNo" class="form-control" placeholder="aadhar number">
+                        <span asp-validation-for="AdharNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Gstno"></label>
+                        <input type="text" asp-for="Gstno" class="form-control" placeholder="gst number">
+                        <span asp-validation-for="Gstno" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+
+
+

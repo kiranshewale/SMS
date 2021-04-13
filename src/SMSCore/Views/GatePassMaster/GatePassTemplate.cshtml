@@ -1,0 +1,105 @@
+﻿@model GatePassModel;
+@{
+    var counter = 1;
+}
+<style>
+    .tbl-bordered {
+        width: 100%;
+       
+        border-collapse: collapse;
+        display: table;
+        text-indent: initial;
+        border-spacing: 2px;
+    }
+
+    .tdl-td-th {
+        border: 1px solid #dee2e6;
+        background-color: transparent;
+        padding: 8px;
+    }
+</style>
+<div class="card w-100">
+    <br />
+    <table style="width: 85%;
+        margin: 0px auto;">
+        <tr>
+            <td rowspan="2">
+                <div style="font-size:19px;">KRRISH AUTOWHEELS PVT. LTD</div>
+                <div style="font-size:19px;">PATHARDI PHATA, NASHIK</div>
+            </td>
+            <td style="text-align:right">
+                Date - @Model.GatePassDate
+            </td>
+        </tr>
+       <tr><td colspan="2"><br /><br /><br /></td></tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <h3> GATE PASS</h3>
+            <td>
+
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br />
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:left">
+                To :  <b style="margin-left:15px;">  @Model.VehicleoutTo</b>
+            </td>
+            <td style="text-align:right">
+                GatePass No. : @Model.GatePassNo
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:left">
+                For : <b style="margin-left:15px;"> @Model.VehicleoutFor</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Handed Over To : <b style="margin-left:15px;"> @Model.ByHand</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="tbl-bordered">
+                    <thead style="background-color:lightgray;">
+                        <tr class="text-center">
+                            <th class="tdl-td-th">Sr No.</th>
+                            <th class="tdl-td-th">Model Name</th>
+                            <th class="tdl-td-th">Colour</th>
+                            <th class="tdl-td-th">VIN Number</th>
+                            <th class="tdl-td-th">Engine Number</th>
+                            <th class="tdl-td-th">Key Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AllotedVehicleDetails) {
+                        <tr style="text-align:center;">
+                            <td class="tdl-td-th">@counter</td>
+                            <td class="tdl-td-th">@item.Model</td>
+                            <td class="tdl-td-th">@item.Colour</td>
+                            <td class="tdl-td-th">@item.VINNumber</td>
+                            <td class="tdl-td-th">@item.EngineNumber</td>
+                            <td class="tdl-td-th">@item.KeyNo</td>
+                        </tr>
+                            counter++;
+                        }
+                    </tbody>
+                </table>
+            </td>
+        <tr>
+            <td><br /><br /><br /><br /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:right;padding-right:10px;">Vehicle Out By :<b> @Model.AuthPerson </b>
+            <br /></td>
+            
+        </tr>
+    </table>
+</div>

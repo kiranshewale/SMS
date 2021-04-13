@@ -1,0 +1,118 @@
+﻿@model IList<VehiclesMasterModel>;
+@{
+    ViewData["Title"] = "Designation List";
+    Layout = "_Layout";
+    var number = 1;
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Manage Vehicles</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <div class="breadcrumb float-sm-right">
+                    <a asp-controller="VehiclesMaster" asp-action="ImportVehiclesData" class="btn bg-blue">
+                        <i class="fas fa-file-import"></i>
+                       Import Vehicles
+                    </a>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Existing Vehicles List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>HCIL Invoice Date</th>
+                                    <th>Unload Date</th>
+                                    <th>Aging Days</th>
+                                    <th>VIN Number</th>
+                                    <th>Engine Number</th>
+                                    <th>Key Number</th>
+                                    <th>Model Name</th>
+                                    <th>Model Varient</th>
+                                    <th>Model Colour</th>
+                                    <th>Invoice Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@number</td>
+                                    <td>@item.HcilinvoiceDate</td>
+                                    <td>@item.UnloadDate</td>
+                                    <td>@item.AgingDays</td>
+                                    <td>@item.Vinnumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>@item.KeyNumber</td>
+                                    <td>@item.ModelName</td>
+                                    <td>@item.ModelVarient</td>
+                                    <td>@item.ModelColour</td>
+                                    <td>@item.InvoiceNumber</td>
+                                    <!--<td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })-->
+                                        @*<a asp-action="Edit/@item.Id" class="btn bg-blue">
+                <i class="fas fa-pencil-alt"></i>
+                Edit
+            </a>*@
+                                    <!--</td>-->
+                                </tr>
+                                    number++;
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- jQuery -->
+@*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
+<!-- Bootstrap 4 -->
+@*<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<!-- DataTables -->
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength":15,
+        });
+    });</script>

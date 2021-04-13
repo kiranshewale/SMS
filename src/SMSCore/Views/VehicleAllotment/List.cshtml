@@ -1,0 +1,128 @@
+﻿@model IList<VehicleAllotmentModel>;
+@{
+    ViewData["Title"] = "Alloted Vehicles List";
+    Layout = "_Layout";
+    var number = 1;
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4 class="m-0 text-dark">Manage Alloted Vehicles</h4>
+            </div>
+            <!-- /.col -->
+            @*<div class="col-sm-6">
+                <div class="breadcrumb float-sm-right">
+                    <a asp-controller="VehiclesMaster" asp-action="ImportVehiclesData" class="btn bg-blue">
+                        <i class="fas fa-file-import"></i>
+                       Import Vehicles
+                    </a>
+                </div>
+            </div>*@<!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Alloted Vehicles List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover" style="font-size:14px;text-align:center;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Model</th>
+                                    <th>Colour</th>
+                                    <th style="width: 20px">Aging Days</th>
+                                    <th>VIN Number</th>
+                                    <th>Engine Number</th>
+                                    <th style="width:20px">Approved</th>
+                                    <th>Customer Name</th>
+                                    <th>Sales Consultant</th>
+                                    <th>Branch</th>
+                                    <th>Alloted On</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:13px;">
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@number</td>
+                                    <td>@item.Model</td>
+                                    <td>@item.Colour</td>
+                                    <td>@item.AgingDays</td>
+                                    <td>@item.VINNumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>
+                                        @if (@item.IsAlloted)
+                                        {
+                                            <i class="fas fa-check"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-times"></i>
+                                        }
+                                    </td>
+                                    <td>@item.CustomerName</td>
+                                    <td>@item.SalesConsultant</td>
+                                    <td>@item.BranchName</td>
+                                    <td>@item.AllotDate</td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                        @*<a asp-action="Edit/@item.Id" class="btn bg-blue">
+                <i class="fas fa-pencil-alt"></i>
+                Edit
+            </a>*@
+                                    </td>
+                                </tr>
+                                    number++;
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- jQuery -->
+@*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
+<!-- Bootstrap 4 -->
+@*<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<!-- DataTables -->
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength":15,
+        });
+    });</script>

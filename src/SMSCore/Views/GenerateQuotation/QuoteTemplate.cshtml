@@ -1,0 +1,473 @@
+﻿@model GenerateQuotationModel;
+@{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    var kUrl = Model.Url + "/images/krrish-logo.png";
+    var hUrl = Model.Url + "/images/honda-logo.png";
+}
+
+
+<style>
+    table {
+        border-spacing: 1px;
+        font-size: 15px;
+    }
+
+    td {
+        padding: 4px;
+    }
+
+    .header {
+        border-radius: 25px;
+        border: 5px solid Red;
+        height: auto;
+        width: 87%;
+        margin-left: 6%;
+        margin-top: 7px;
+    }
+
+    .klogo {
+        width: 150px;
+        float: left;
+        padding: 10px;
+        padding-left: 35px;
+    }
+
+    .middle-content {
+        width: 600px;
+        float: left;
+        text-align: center;
+    }
+
+    .comp-logo {
+        width: 150px;
+        float: right;
+        padding: 10px;
+    }
+
+    img {
+        width: 100px;
+    }
+
+    .rr {
+        color: red;
+        font-family: sans-serif;
+        font-weight: 800;
+        font-size: 29px;
+        padding-left: -10px;
+    }
+
+    .kk1 {
+        color: red;
+        font-family: sans-serif;
+        font-size: 21px;
+        padding-left: 0px;
+    }
+
+    .kk2 {
+        font-weight: 600;
+        padding-left: -10px;
+    }
+
+    .tdborders {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+    /*
+    ul li::before {
+        content: "\2022";
+        color: red;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }*/
+</style>
+<br />
+<table style="width:85%;margin-left:8%;">
+    <tr><td colspan="3" style="text-align:center;"><h3>Customer Information</h3></td></tr>
+    <tr>
+        <td colspan="2" style="width:90%;padding-left:10px;">Name : @Model.CustomerDetails.CustomerName </td>
+
+        <td style="width:10%;padding-right:20px;text-align:right;">Date : @Model.QuoteDate</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="width:90%;padding-left:10px;">Address : @Model.CustomerDetails.Address1</td>
+        <td style="width:10%;padding-right:20px;text-align:right;">SC : @Model.SCName</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="width:90%;padding-left:10px;">@Model.CustomerDetails.Address2</td>
+        <td style="width:10%;padding-right:20px;text-align:right;">TL : @Model.TLName</td>
+    </tr>
+    <tr>
+        <td style="width:35%;padding-left:10px;">Email : @Model.CustomerDetails.EmailId</td>
+        <td style="width:32%;padding-left:60px;">Pincode : @Model.CustomerDetails.Pin</td>
+        <td style="width:33%;padding-right:20px;text-align:right;">Model : @Model.ModelName</td>
+    </tr>
+    <tr>
+        <td style="width:33%;padding-left:10px;">Mobile 1 :@Model.CustomerDetails.MobileNo1</td>
+        <td style="width:33%;padding-left:60px;">Mobile 2 : @Model.CustomerDetails.MobileNo2</td>
+        <td style="width:33%;padding-right:20px;text-align:right;">Source  : @Model.SourceOfEnquiry</td>
+    </tr>
+
+</table>
+<div class="header">
+    <table>
+        <tr>
+            <td class="klogo">
+                <img src="@kUrl" />
+            </td>
+            <td class="middle-content" style="margin-left:-100px;">
+                <div class="rr">RUSHABH HONDA</div>
+                <div class="kk1">KRRISH AUTOWHEELS PVT. LTD.</div>
+                <div class="kk2">Honda Exclusive Authorised Dealer</div>
+            </td>
+            <td class="comp-logo">
+                <img src="@hUrl" />
+            </td>
+        </tr>
+        <tr style="border-top:1px solid black;">
+            <td colspan="3" style="margin-top:-40px;">
+                <hr />
+                <p style="font-family:sans-serif;font-size:15px;text-align:center;margin-top:-5px;"> 294, Mumbai Agra Road, Ambad, Nashik - 422010, <i class="fas fa-phone-alt"></i>  :- 0253 6643333, <i class="fas fa-envelope"></i> :- sales@rushabhhonda.com</p>
+            </td>
+        </tr>
+    </table>
+</div><br />
+<table style="width:85%;margin-left:8%;">
+    <tr><td colspan="3" style="text-align:center;"><h3>Quotation</h3></td></tr>
+    <tr>
+        <td colspan="3">
+            <span style="padding-left:20px;">To,</span>
+            <span style="float:right;padding-right:10px;">Sr.No. : @Model.quoteNo</span>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-left:30px;"> @Model.CustomerDetails.CustomerName </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="padding-left:20px;"><span>Dear Sir,</span> <span style="float:right;padding-right:10px;">Date : @Model.QuoteDate  </span></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="padding-left:20px;font-size:14px;">Cost of one HONDA VEHICLE</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">MODEL</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">@Model.VarientName</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">COLOUR</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">@Model.ColourName </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">EX-SHOWROOM PRICE Rs.</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.ExShowroomPrice</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">FASTTAG</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.FastTag </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">TCS 1%</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.TCS</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">REGISTRATION (IND/COMP)</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.Registration </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">CRTM (IND/COMP)</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.CRTM</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">INSURANCE</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.Insurance</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">ADD ON + KEY PROTECT</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.InsuranceWithKeyProtect</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">RTI + ENGINE PROTECT</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.InsuranceWithEngineProtect </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">H-CONNECT</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.HConnect </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">EXTENDED WARRANTY <span>(3rdYr/3rd&4thYr./4th&5thYr.)</span></td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.ExtendedWarranty </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">RSA</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.RSA </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">ACCESSORIES</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.Accessories</td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">CLAYBAR </td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.ClayBar </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">ANTIRUST</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.Antirust </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;">  </td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">LAMINATION</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.Lamination </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;font-weight: bold;color:red;">TOTAL</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;font-weight: bold;">&#8377; @Model.VehiclePriceList.Total </td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">*CONSUMER VALID TILL</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.ConsumerBonus</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">CORPORATE RURAL INDIA</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.CorporateRuralInd</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">EXCHANGE/OTHER</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;">&#8377; @Model.VehiclePriceList.ExchangeBonus </td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;font-weight: bold;color:red;">GRAND TOTAL</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;font-weight: bold;">&#8377; @Model.VehiclePriceList.GrandTotal </td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="padding-left:20px;text-align:right;font-size:10px;">*conditions apply </td>
+
+    </tr>
+    <tr>
+        <td colspan="3">
+            <b style="padding-left:5px;font-size:15px;">BOOKING AMOUNT :&#8377; @Model.BookingAmount</b>
+
+            <b style="float:right;font-size:15px;"> For KRRISH AUTOWHEELS PVT. LTD.</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-left:10px;font-size:15px;">
+            @Model.SCName
+        </td>
+        <td colspan="2">
+            <span style="font-size: 16px; border: 1px solid red; padding: 4px; background: red; color: white;"><i class="fas fa-phone-volume"></i> For More Details:</span>
+            <span style="border: 1px solid red; padding: 4px 44px 4px 24px; font-size: 17px;margin-left: -7px;"> @Model.SCMobileNumber</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <span style="float: left; font-size: 14px;padding-left:7px">Sales Consultant </span>
+            <span style="margin-left: 175px; float: left; font-weight: bold; font-size: 15px; margin-top: -3px;"> PAN CARD is Necessary at the time of Booking</span>
+            <span style="float: right; font-size: 14px; padding-right: 10px;"> Sales Consultant Sign</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="border:1px groove black;text-align:center">
+            <div style="font-size:14px;padding-left:10px;"><b>RTGS: E-Banking : </b>KRRISH AUTOWHEELS PVT. LTD. <b>Bank Name : </b> State Bank Of India <b>A/C No. :35391687950</b></div>
+            <div style="font-size:13px;padding-left:10px;">Shop No.12 to 22, Prosper Park,Shingada Talav,Nashik-Pune Road, Near Fire Brigade Office,Nashik-422001, IFSC Code:SBIN14885</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: center; font-size: 13px; font-weight: bold; background-image: linear-gradient(to right, blue, skyblue,blue); color: white;">
+            NEW VEHICLE WILL BE DELIVERED ONLY & ONLY WITH REGISTRATION
+        </td>
+    </tr>
+</table>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<table style="width:85%;margin-left:8%;">
+
+    <tr>
+        <td colspan="3">FINANCE SCHEME*</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">MODEL</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">ON ROAD COST</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">LOAN AMOUNT %</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">MARGIN MONEY</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">(1ST) EMI ADVANCE</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">STAMP DUTY</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"> </td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">PROCESSING FEE</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">SCHEME*</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+    
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">NET DOWN PAYMENT</td>
+        <td class="tdborders" style="width:33%;padding-left:50px;"></td>
+        <td class="tdborders" style="width:33%;padding-left:80px;"></td>
+    </tr>
+</table>
+<br />
+<table style="width:85%;margin-left:8%;">
+
+    <tr>
+        <td colspan="3">DOCUMENTS REQUIRED - FINANCE SCHEME </td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;text-align:center;">SALARY CLASS</td>
+        <td class="tdborders" style="width:33%;text-align:center;">BUSINESS CLASS</td>
+        <td class="tdborders" style="width:33%;text-align:center;">AGRICULTURE & NO INCOME CLASS</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">2 Photo</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">2 Photo</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">2 Photo</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Pan Card/Adhar Card/Passport</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Pan Card/Adhar Card/Passport</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Pan Card/Adhar Card/Passport</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Election Card</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Election Card</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Election Card</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Light Bill/BSNL Bill</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Light Bill/BSNL Bill</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Light Bill/BSNL Bill</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;"> Last 3 Month Pay Sleep</td>
+        <td rowspan="2" class="tdborders" style="width:33%;padding-left:20px;">Last 2 yearr ITR(Saral, P&L, Computation of income, Balance Sheet) </td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">7/12 & 8A(Khata Utara)</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Last 2 year From No 16</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Last 1 year Bank Statement</td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Last 6 month Bank Statement Salary A/C</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Shop Act Lic.</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Cheque Same A/C</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Last 6 month Bank Statement Salary A/C</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+    <tr>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Cheque Same A/C</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;">Cheque Same A/C</td>
+        <td class="tdborders" style="width:33%;padding-left:20px;"></td>
+    </tr>
+</table>
+<br />
+<table style="width:85%;margin-left:8%;">
+
+    <tr>
+        <td colspan="3" style="font-weight:bold;">Note </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-size: 14px;">
+            1) Price & Schemes Ruling at the time of delivery or invoice will be applicable & RTO charges applicable at the time of Registration.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-size: 14px;">
+            2) D D/Pay order should be in Favour of KRRISH AUTOWHEELS PVT. LTD. Payable at Nashik.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-size: 14px;">
+            3) Deliveries are subject to confirmation and availability of vehicle  from HONDA CARS INDIA LTD.
+            and would be effected from the date of Reciept of payment/Booking.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-size: 14px;">
+            4) The prices are subject to change without Notice & disputes shall be subject to 'Nashik' Jurisdiction only.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-size: 14px;">
+            5) RTO includes Registration fees, Administrative and Service charges & No order will be binding until accepted in writing.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-size: 13px;">
+            Note : Kindly carry the same quotation at the time of bookin.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <br /> <br />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align:right;padding-right:10px;font-size:15px;font-weight:bold">
+            Customer Signature
+        </td>
+    </tr>
+
+</table>
+
+
+
+

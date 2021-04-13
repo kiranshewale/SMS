@@ -1,0 +1,71 @@
+﻿@model IList<VehiclesListModel>;
+@{
+    var number = 1;
+}
+
+<div class="col-md-12">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Vehicle List</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <table class="table table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Model</th>
+                            <th>Varient</th>
+                            <th>Colour</th>
+                            <th>VIN Number</th>
+                            <th>Engine Number</th>
+                            <th>Key Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @number
+                                    <input type="hidden" asp-for="@item.VID" />
+                                </td>
+                                <td>@item.Model</td>
+                                <td>
+                                    @item.Varient
+
+                                </td>
+                                <td>
+                                    @item.Colour
+
+                                </td>
+                                <td>
+                                    @item.VINNumber
+
+                                </td>
+                                <td>
+                                    @item.EngineNumber
+
+                                </td>
+                                <td>
+                                    @item.KeyNumber
+
+                                </td>
+                            </tr>
+                            number++;
+                        }
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-info w-100">
+               Allot Vehicle
+            </button>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+
+</div>

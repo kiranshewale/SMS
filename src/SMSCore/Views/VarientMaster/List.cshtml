@@ -1,0 +1,119 @@
+﻿@model IList<VarientMasterModel>;
+@{
+    ViewData["Title"] = "Varients List";
+    Layout = "_Layout";
+    var number = 1;
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Manage Varients</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <div class="breadcrumb float-sm-right">
+                    <a asp-controller="VarientMaster" asp-action="Create" class="btn bg-blue">
+                        <i class="fa fa-plus-square"></i>
+                        Add New
+                    </a>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Existing Varients List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>SrNo</th>
+                                    <th>Varient Name</th>
+                                    <th>Varient Code</th>
+                                    <th>Friendly Name</th>
+                                    <th>Active</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td>@number</td>
+                                        <td>
+                                            @item.VerientName
+                                        </td>
+                                        <td>@item.VarientCode</td>
+
+                                        <td>@item.FriendlyName</td>
+                                        <td>
+                                            @if (@item.Active)
+                                            {
+                                                <i class="fas fa-check"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fas fa-times"></i>
+                                            }
+
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                            @*<a asp-action="Edit/@item.Id" class="btn bg-blue">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Edit
+                                                </a>*@
+                                        </td>
+                                    </tr>
+                                    number++;
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- jQuery -->
+@*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
+<!-- Bootstrap 4 -->
+@*<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<!-- DataTables -->
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });</script>

@@ -1,0 +1,317 @@
+﻿@model GenerateQuotationModel;
+
+<input type="hidden" asp-for="quoteNo" />
+<form asp-controller="GenerateQuotation" asp-action="GenarateQuote" method="post" asp-antiforgery="true" class="ui form attached fluid segment validate-me g-pt-20 col-md-12" role="form">
+
+    <!-- Content Wrapper. Contains page content -->
+    @*<div class="content-wrapper">*@
+    <!-- Content Header (Page header) -->
+    @if (Model.IsErrorFound)
+    {
+        <section class="content-header" id="error-sec">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <div class="alert alert-danger" role="alert">
+                            @Model.Error
+                        </div>
+
+                    </div>
+
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <script>
+            $("#error-sec").hide(7000);
+        </script>
+    }
+   
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-8">
+                    <h3>Generate Quotation </h3>
+                </div>
+
+            </div>
+        </div><!-- /.container-fluid -->
+        <hr />
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 mb-3">
+                    <div>
+                        <div class="input-group">
+                            <input type="search" id="searchtxt" class="form-control form-control-lg" placeholder="search customer by email / moboile no / pan no">
+                            <div class="input-group-append">
+                                <button type="button" id="searchBtn" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div asp-validation-summary="None" class="text-danger"></div>
+        <div class="row">
+            <div id="custInfo">
+                @await Html.PartialAsync("~/Views/CustomerMaster/_CreateOrUpdate.cshtml", Model.CustomerDetails)
+            </div>
+
+            <div class="col-md-12">
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">Vehicle Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ModelId"></label>
+                                <select class="form-control custom-select" asp-for="ModelId" asp-items="Model.AvailableModels"></select>
+                                <span asp-validation-for="ModelId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label asp-for="VarientId"></label>
+                                <select class="form-control custom-select" asp-for="VarientId" asp-items="Model.AvailableVarients"></select>
+                                <span asp-validation-for="VarientId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="VarientType"></label>
+                                <select class="form-control custom-select" asp-for="VarientType" asp-items="Model.AvailableVarientTypes"></select>
+                                <span asp-validation-for="VarientType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="VarientColourId"></label>
+                                <select class="form-control custom-select" asp-for="VarientColourId" asp-items="Model.AvailableVarientColours"></select>
+                                <span asp-validation-for="VarientColourId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="TeamLeaderId"></label>
+                                <select class="form-control custom-select" asp-for="TeamLeaderId" asp-items="Model.AvailableTeamLeaders"></select>
+                                <span asp-validation-for="TeamLeaderId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="SalesConsultantId"></label>
+                                <select class="form-control custom-select" asp-for="SalesConsultantId" asp-items="Model.AvailableSalesConsultants"></select>
+                                <span asp-validation-for="SalesConsultantId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="SourceOfEnquiry"></label>
+                                <select class="form-control custom-select" asp-for="SourceOfEnquiry" asp-items="Model.AvailableSourceOfEnquiry"></select>
+                                <span asp-validation-for="SourceOfEnquiry" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="BookingAmount"></label>
+                                <input type="text" asp-for="BookingAmount" class="form-control" placeholder="booking amount">
+                                <span asp-validation-for="BookingAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="button" id="getPriceList" name="generatequote" class="btn btn-info w-100">
+                            Get Price List
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Price List-->
+            <div id="price-list" class="w-75 m-auto">
+                @await Html.PartialAsync("_ModelPriceList", Model.PriceListFilter)
+
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    @*</div>*@
+    <!-- /.content-wrapper -->
+</form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");};
+<script>
+    $(document).ready(function () {
+        $('#price-list').hide();
+            if ($('#CustId').val() != '0') {
+                location.reload();
+            }
+
+        $("#ModelId").change(function () {
+            $('#please-wait').show();
+                var modelId = $('#ModelId').val();
+            BindVarientsByModelDropdown(modelId);
+            $('#please-wait').hide();
+            });
+
+        $("#VarientType").change(function () {
+            $('#please-wait').show();
+                var varientId = $('#VarientId').val();
+                var varType = $('#VarientType').val();
+            BindVarientColoursByVarientTypeDropdown(varientId, varType);
+            $('#please-wait').hide();
+            });
+
+        $("#TeamLeaderId").change(function () {
+            $('#please-wait').show();
+                var teamLeaderId = $('#TeamLeaderId').val();
+            BindSalesConsultantsByTeamLeaderDropdown(teamLeaderId);
+            $('#please-wait').hide();
+            });
+
+        $('#searchBtn').on('click', function () {
+            $('#please-wait').show();
+              // displayAjaxLoading(true);
+                var searchTerm = $('#searchtxt').val();
+
+              $.ajax({
+                  cache: false,
+                  type: "Get",
+                  url: "@Url.Action("GetExistingCustomer", "GenerateQuotation")",
+                  data: {
+                      searchTerm: searchTerm
+                  },
+                  success: function (data, textStatus, jqXHR) {
+                      if (data == 'Not Found') {
+                          alert('customer record not found');
+                      } else {
+                          //$('#custInfo').html('');
+                          $('#custInfo').html(data);
+                      }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Failed to retrieve existing customer.');
+                  },
+                  complete: function (jqXHR, textStatus) {
+                     // displayAjaxLoading();
+                      // Lazy load Images
+                    // $("img.lazyload").lazyload();
+                      $('#please-wait').hide();
+                    }
+                });
+            });
+
+        $('#getPriceList').on('click', function () {
+            $('#please-wait').show();
+              // displayAjaxLoading(true);
+                var varientId = $('#VarientId').val();
+                var varientType = $('#VarientType').val();
+
+              $.ajax({
+                  cache: false,
+                  type: "Get",
+                  url: "@Url.Action("GetPriceList", "GenerateQuotation")",
+                  data: {
+                      'varientId': varientId,
+                      'varientType': varientType
+                  },
+                  success: function (data, textStatus, jqXHR) {
+                      if (data == 'Not Found') {
+                          alert('price list not found');
+                      } else {
+                          //$('#custInfo').html('');
+                          $('#price-list').html(data);
+                      }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Failed to retrieve price list.');
+                  },
+                  complete: function (jqXHR, textStatus) {
+                     // displayAjaxLoading();
+                      // Lazy load Images
+                      // $("img.lazyload").lazyload();
+                      $('#price-list').show();
+                      $('#please-wait').hide();
+                    }
+                });
+            });
+
+        });
+
+        function BindVarientsByModelDropdown(modelId) {
+
+            $.ajax({
+                cache: false,
+                type: "Get",
+                url: '/GenerateQuotation/GetVarientsByModelId',
+                data: {
+                    'modelId': modelId
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                    $('#VarientId').html('');
+
+                    //$('#VarientId').append($('<option></option>').val("").html("Select Varient"));
+
+                    $.each(data,
+                        function (id, option) {
+                            $('#VarientId').append($('<option></option>').val(option.id).html(option.name));
+                        });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to retrive varients by model.');
+                }
+            });
+        }
+
+        function BindVarientColoursByVarientTypeDropdown(varientId, varType) {
+
+            $.ajax({
+                cache: false,
+                type: "Get",
+                url: '/GenerateQuotation/GetVarientColoursByVarient',
+                data: {
+                    'varientId': varientId,
+                    'varientType': varType
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                    $('#VarientColourId').html('');
+
+                    // $('#VarientColourId').append($('<option></option>').val("").html("Select colour"));
+
+                    $.each(data,
+                        function (id, option) {
+                            $('#VarientColourId').append($('<option></option>').val(option.id).html(option.name));
+                        });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to retrive colours by model varient.');
+                }
+            });
+        }
+
+        function BindSalesConsultantsByTeamLeaderDropdown(teamLeaderId) {
+
+            $.ajax({
+                cache: false,
+                type: "Get",
+                url: '/GenerateQuotation/GetSalesConsultantsByTL',
+                data: {
+                    'teamLeaderId': teamLeaderId
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                    $('#SalesConsultantId').html('');
+
+                    //$('#TeamLeaderId').append($('<option></option>').val("").html("Select colour"));
+
+                    $.each(data,
+                        function (id, option) {
+                            $('#SalesConsultantId').append($('<option></option>').val(option.id).html(option.name));
+                        });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to retrive sales consultants by team leader.');
+                }
+            });
+        }
+
+</script>
+}
